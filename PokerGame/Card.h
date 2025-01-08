@@ -4,7 +4,7 @@
 
 #include "GlobalTypes.h"
 
-struct MyStruct
+struct Card
 {
 	card_type card;
 	bool isSevenClubs;
