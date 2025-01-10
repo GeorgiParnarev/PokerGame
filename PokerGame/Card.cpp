@@ -65,3 +65,20 @@ std::string CardToString(card_type card)
 
 	return result;
 }
+
+bool IsSevenClubsPresent(Card cards[])
+{
+	bool isSevenOfClubsPresent = false;
+
+	for (size_t i = 0; i < CARDS_COUNT; i++)
+	{
+		if (cards[i].isSevenClubs)
+		{
+			isSevenOfClubsPresent = true;
+
+			break;
+		}
+	}
+
+	return isSevenOfClubsPresent;
+}

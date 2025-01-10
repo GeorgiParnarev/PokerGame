@@ -14,4 +14,6 @@ struct Card
 /// Converts the card into a human-readable string representation.
 /// </summary>
 /// <returns>A string describing the card (e.g., "7C" for Seven of Clubs).</returns>
-std::string CardToString(card_type card);
+std::string CardToString(card_type);
+
+bool IsSevenClubsPresent(Card[]);

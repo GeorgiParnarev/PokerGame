@@ -108,6 +108,7 @@ const bool INACTIVE_PLAYER = false; ///< Indicates an inactive player.
 // Scoring and game logic constants.
 
 const int CARDS_COUNT = 3;          ///< Number of cards dealt to players.
+const int CARDS_IN_DECK = 32;       ///< Number of cards in the deck.
 
 const int MAX_POINTS = 34;          ///< Maximum points a player can achieve.
 
@@ -119,10 +120,10 @@ const int PAIR_SEVEN_POINTS = 23;   ///< Points for a pair of Sevens.
 
 const int SEVEN_OF_CLUBS_POINTS = 11; ///< Points for the Seven of Clubs.
 
-const bool IS_SAME_SUIT = true;     ///< Indicates if two cards are of the same suit.
+const bool IS_SAME_SUIT = true;      ///< Indicates if two cards are of the same suit.
 const bool IS_NOT_SAME_SUIT = false; ///< Indicates if two cards are not of the same suit.
 
-const bool IS_SAME_KIND = true;     ///< Indicates if two cards are of the same rank.
+const bool IS_SAME_KIND = true;      ///< Indicates if two cards are of the same rank.
 const bool IS_NOT_SAME_KIND = false; ///< Indicates if two cards are not of the same rank.
 
 /// <summary>

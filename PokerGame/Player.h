@@ -9,7 +9,7 @@
 struct Player
 {
 	std::string name;					///< The name of the player.
-	std::string cardsDisplay;
+	std::string cardsAndPointsDisplay;
 	int chips;							///< The amount of chips the player has.
 	int points;							///< The player's current points.
 	int lastRaise;
@@ -17,11 +17,6 @@ struct Player
 	player_condition_type isPlayerActive;
 	bool isHasSevenClubs;
 };
-
-/// <summary>
-/// Clears all cards from the player's hand.
-/// </summary>
-void ClearCards();
 
 /// <summary>
 /// Calculates the points based on the player's hand.
@@ -64,14 +59,14 @@ bool PairOfSevens(Card[]);
 /// </summary>
 /// <param name="scoredPoints">The accumulated score to be updated if a valid pair with the Seven of Clubs is found.</param>
 /// <returns>True if the player has a pair of cards based on rank and the Seven of Clubs; otherwise, false.</returns>
-bool PairWithSevenOfClubs(int&, Player, Card[]);
+bool PairWithSevenOfClubs(int&, Card[]);
 
 /// <summary>
 /// Checks if the player has a pair of cards from the same suit and adds points accordingly.
 /// </summary>
 /// <param name="scoredPoints">The accumulated score to be updated.</param>
 /// <returns>True if the player has a pair of cards from the same suit; otherwise, false.</returns>
-bool PairOfSuits(int&, Player, Card[]);
+bool PairOfSuits(int&, Card[]);
 
 /// <summary>
 /// Calculates the points based on the highest card in the player's hand.
@@ -97,4 +92,4 @@ bool CardsShareSameSuit(const Card&, const Card&);
 
 void AddChips(Player, int);
 
-std::string CardsAndPointsToString();
+std::string CardsToString(Card[], int);

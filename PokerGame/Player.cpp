@@ -94,9 +94,9 @@ bool CardsShareSameKind(const Card& card1, const Card& card2)
 	return (card1.card & Pip::PipMask) == (card2.card & Pip::PipMask);
 }
 
-bool PairWithSevenOfClubs(int& scoredPoints, Player player, Card cards[])
+bool PairWithSevenOfClubs(int& scoredPoints, Card cards[])
 {
-	if (!player.isHasSevenClubs)
+	if (!IsSevenClubsPresent(cards))
 	{
 		return SEVEN_CLUBS_NOT_PRESENT;
 	}
@@ -130,7 +130,7 @@ bool CardsShareSameSuit(const Card& card1, const Card& card2)
 	return (card1.card & Suit::SuitMask) == (card2.card & Suit::SuitMask);
 }
 
-bool PairOfSuits(int& scoredPoints, Player player, Card cards[])
+bool PairOfSuits(int& scoredPoints, Card cards[])
 {
 	if (CardsShareSameSuit(cards[0], cards[1]))
 	{
@@ -197,7 +197,7 @@ int CalculatePoints(Player player, Card cards[])
 
 	if (PairOfAces(cards))
 	{
-		int handScore = PAIR_ACE_POINTS + (player.isHasSevenClubs ? SEVEN_OF_CLUBS_POINTS : 0);
+		int handScore = PAIR_ACE_POINTS + (IsSevenClubsPresent(cards) ? SEVEN_OF_CLUBS_POINTS : 0);
 
 		if (points < handScore)
 		{
@@ -215,7 +215,7 @@ int CalculatePoints(Player player, Card cards[])
 
 	int pairPoints = 0;
 
-	if (PairWithSevenOfClubs(pairPoints, player, cards))
+	if (PairWithSevenOfClubs(pairPoints, cards))
 	{
 		int handScore = pairPoints + SEVEN_OF_CLUBS_POINTS;
 
@@ -227,9 +227,9 @@ int CalculatePoints(Player player, Card cards[])
 		pairPoints = 0;
 	}
 
-	if (PairOfSuits(pairPoints, player, cards))
+	if (PairOfSuits(pairPoints, cards))
 	{
-		int handScore = (pairPoints + (player.isHasSevenClubs ? SEVEN_OF_CLUBS_POINTS : 0));
+		int handScore = (pairPoints + (IsSevenClubsPresent(cards) ? SEVEN_OF_CLUBS_POINTS : 0));
 
 		if (points < handScore)
 		{
@@ -239,9 +239,39 @@ int CalculatePoints(Player player, Card cards[])
 
 	if (points == 0)
 	{
-		points = CalcHighCard(cards) + (player.isHasSevenClubs ? SEVEN_OF_CLUBS_POINTS : 0);
+		points = CalcHighCard(cards) + (IsSevenClubsPresent(cards) ? SEVEN_OF_CLUBS_POINTS : 0);
 	}
 
 	return points;
 }
 
+void SetCards(Player& player, Card cardsDeck[], int& currentDeckSize)
+{
+	srand(time(0));
+
+	Card cards[CARDS_COUNT];
+
+	for (int i = 0; i < CARDS_COUNT; i++)
+	{
+		int randomIndex = rand() % currentDeckSize;
+
+		cards[i] = cardsDeck[randomIndex];
+		cardsDeck[randomIndex] = cardsDeck[currentDeckSize - 1];
+		currentDeckSize--;
+	}
+
+	player.points = CalculatePoints(player, cards);
+	player.cardsAndPointsDisplay = CardsToString(cards, player.points);
+}
+
+std::string CardsToString(Card cards[], int points)
+{
+	std::string result = "";
+
+	for (size_t i = 0; i < CARDS_COUNT; i++)
+	{
+		result.append(CardToString(cards[i].card)).append(" ");
+	}
+
+	return result.append(std::to_string(points));
+}
