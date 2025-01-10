@@ -17,6 +17,8 @@ void SetUpCardDeck(Card cards[])
 			card.card = pipsMatrix[0][pips] | pipsMatrix[1][pips] | suits[suit];
 
 			cards[cardNum] = card;
+
+			cardNum++;
 		}
 	}
 }
