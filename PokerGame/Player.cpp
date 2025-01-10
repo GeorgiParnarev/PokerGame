@@ -171,7 +171,7 @@ int CalcHighCard(Card cards[])
 	return points;
 }
 
-int CalculatePoints(Player player, Card cards[])
+int CalculatePoints(Card cards[])
 {
 	int points = 0;
 
@@ -260,7 +260,7 @@ void SetCards(Player& player, Card cardsDeck[], int& currentDeckSize)
 		currentDeckSize--;
 	}
 
-	player.points = CalculatePoints(player, cards);
+	player.points = CalculatePoints(cards);
 	player.cardsAndPointsDisplay = CardsToString(cards, player.points);
 }
 

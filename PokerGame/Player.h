@@ -22,7 +22,7 @@ struct Player
 /// Calculates the points based on the player's hand.
 /// </summary>
 /// <returns>The calculated points.</returns>
-int CalculatePoints(Player, Card[]);
+int CalculatePoints(Card[]);
 
 /// <summary>
 /// Checks if the player has three Sevens in their hand.
