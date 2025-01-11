@@ -4,7 +4,7 @@
 #include "Card.h"
 #include "GlobalConstants.h"
 
-void AddChips(Player player, int chips)
+void AddChips(Player& player, int chips)
 {
 	player.chips += chips;
 }
@@ -89,7 +89,7 @@ bool PairOfSevens(Card cards[])
 	return IS_NOT_ACE_OR_SEVEN_PAIR;
 }
 
-bool CardsShareSameKind(const Card& card1, const Card& card2)
+bool CardsShareSameKind(const Card card1, const Card card2)
 {
 	return (card1.card & Pip::PipMask) == (card2.card & Pip::PipMask);
 }
@@ -125,7 +125,7 @@ bool PairWithSevenOfClubs(int& scoredPoints, Card cards[])
 	return IS_NOT_SAME_KIND;
 }
 
-bool CardsShareSameSuit(const Card& card1, const Card& card2)
+bool CardsShareSameSuit(const Card card1, const Card card2)
 {
 	return (card1.card & Suit::SuitMask) == (card2.card & Suit::SuitMask);
 }

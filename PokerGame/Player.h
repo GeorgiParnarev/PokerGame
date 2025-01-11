@@ -80,7 +80,7 @@ int CalcHighCard(Card[]);
 /// <param name="card1">The first card.</param>
 /// <param name="card2">The second card.</param>
 /// <returns>True if the cards share the same rank; otherwise, false.</returns>
-bool CardsShareSameKind(const Card&, const Card&);
+bool CardsShareSameKind(const Card, const Card);
 
 /// <summary>
 /// Checks if two cards share the same suit.
@@ -88,8 +88,8 @@ bool CardsShareSameKind(const Card&, const Card&);
 /// <param name="card1">The first card.</param>
 /// <param name="card2">The second card.</param>
 /// <returns>True if the cards share the same suit; otherwise, false.</returns>
-bool CardsShareSameSuit(const Card&, const Card&);
+bool CardsShareSameSuit(const Card, const Card);
 
-void AddChips(Player, int);
+void AddChips(Player&, int);
 
 std::string CardsToString(Card[], int);

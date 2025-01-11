@@ -16,6 +16,11 @@ void SetUpCardDeck(Card cards[])
 			Card card;
 			card.card = pipsMatrix[0][pips] | pipsMatrix[1][pips] | suits[suit];
 
+			bool isSevenClubs = (card.card & (card_type)Suit::SuitMask) == Suit::Clubs;
+			isSevenClubs = isSevenClubs && (card.card & Pip::PipMask) == Pip::N7;
+
+			card.isSevenClubs = isSevenClubs;
+
 			cards[cardNum] = card;
 
 			cardNum++;
