@@ -128,12 +128,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Card.cpp" />
+    <ClCompile Include="Deal.cpp" />
+    <ClCompile Include="Gameplay.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PokerGame.cpp" />
     <ClCompile Include="SetDeck.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
+    <ClInclude Include="Deal.h" />
+    <ClInclude Include="Gameplay.h" />
     <ClInclude Include="GlobalConstants.h" />
     <ClInclude Include="GlobalTypes.h" />
     <ClInclude Include="Player.h" />

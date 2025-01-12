@@ -93,3 +93,11 @@ bool CardsShareSameSuit(const Card, const Card);
 void AddChips(Player&, int);
 
 std::string CardsToString(Card[], int);
+
+bool IsPlayerInDeal(player_condition_type);
+
+int CalcMaxRaise(Player[]);
+
+void SetCards(Player&, Card[], int&);
+
+void InitEmptyPlayer(Player&);

@@ -1,6 +1,10 @@
 #include <iostream>
 
+#include "Gameplay.h"
+
 int main()
 {
-    std::cout << "Hello World!\n";
+    GameRun();
+
+    return 0;
 }

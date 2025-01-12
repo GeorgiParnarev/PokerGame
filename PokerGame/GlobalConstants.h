@@ -6,25 +6,26 @@
 
 enum PlayerCondition
 {
-    Unactive = 0,
-    Active = 0b00000001,
-    Fold = Active << 1,
-    Call = Fold << 1,
-    Raise = Call << 1
+	Unactive = 0,
+	Active = 0b00000001,
+	Fold = Active << 1,
+	Call = Fold << 1,
+	Raise = Call << 1,
+	Hold = Raise << 1
 };
 
-enum Game_Condition
+enum GameCondition
 {
-    Win,
-    Continue,
-    DealEnd,
-    End
+	Win,
+	Continue,
+	DealEnd,
+	End
 };
 
-enum File_Conditions
+enum FileCondition
 {
-    OK,
-    Error
+	OK,
+	Error
 };
 
 const int POT_STARTING_AMOUNT = 0;
@@ -36,15 +37,15 @@ const int NO_RAISE_AMOUNT = 0;
 /// </summary>
 enum Pip
 {
-    N7 = 0b100000000,       ///< Represents the 7 pip (rank) in the card encoding.
-    N8 = N7 << 1,           ///< Represents the 8 pip.
-    N9 = N8 << 1,           ///< Represents the 9 pip.
-    N10 = N9 << 1,          ///< Represents the 10 pip.
-    J = N10 << 1,           ///< Represents the Jack pip.
-    Q = J << 1,             ///< Represents the Queen pip.
-    K = Q << 1,             ///< Represents the King pip.
-    A = K << 1,             ///< Represents the Ace pip.
-    PipMask = 0b1111111100000000 ///< Mask for extracting the pip value from a card.
+	N7 = 0b100000000,       ///< Represents the 7 pip (rank) in the card encoding.
+	N8 = N7 << 1,           ///< Represents the 8 pip.
+	N9 = N8 << 1,           ///< Represents the 9 pip.
+	N10 = N9 << 1,          ///< Represents the 10 pip.
+	J = N10 << 1,           ///< Represents the Jack pip.
+	Q = J << 1,             ///< Represents the Queen pip.
+	K = Q << 1,             ///< Represents the King pip.
+	A = K << 1,             ///< Represents the Ace pip.
+	PipMask = 0b1111111100000000 ///< Mask for extracting the pip value from a card.
 };
 
 /// <summary>
@@ -53,11 +54,11 @@ enum Pip
 /// </summary>
 enum Suit
 {
-    Clubs = 0b10000,        ///< Represents the Clubs suit.
-    Diamonds = Clubs << 1,  ///< Represents the Diamonds suit.
-    Hearts = Diamonds << 1, ///< Represents the Hearts suit.
-    Spades = Hearts << 1,   ///< Represents the Spades suit.
-    SuitMask = 0b11110000   ///< Mask for extracting the suit value from a card.
+	Clubs = 0b10000,        ///< Represents the Clubs suit.
+	Diamonds = Clubs << 1,  ///< Represents the Diamonds suit.
+	Hearts = Diamonds << 1, ///< Represents the Hearts suit.
+	Spades = Hearts << 1,   ///< Represents the Spades suit.
+	SuitMask = 0b11110000   ///< Mask for extracting the suit value from a card.
 };
 
 /// <summary>
@@ -66,16 +67,16 @@ enum Suit
 /// </summary>
 enum Rank
 {
-    Ace = 11,               ///< Value of an Ace card in points.
-    King = 10,              ///< Value of a King card in points.
-    Queen = 10,             ///< Value of a Queen card in points.
-    Jack = 10,              ///< Value of a Jack card in points.
-    Ten = 10,               ///< Value of a Ten card in points.
-    Nine = 9,               ///< Value of a Nine card in points.
-    Eight = 8,              ///< Value of an Eight card in points.
-    Seven = 7,              ///< Value of a Seven card in points.
-    RankMask = 0b1111,      ///< Mask for extracting the rank value from a card.
-    NegativeRankMask = ~RankMask ///< Mask for clearing the rank portion of a card.
+	Ace = 11,               ///< Value of an Ace card in points.
+	King = 10,              ///< Value of a King card in points.
+	Queen = 10,             ///< Value of a Queen card in points.
+	Jack = 10,              ///< Value of a Jack card in points.
+	Ten = 10,               ///< Value of a Ten card in points.
+	Nine = 9,               ///< Value of a Nine card in points.
+	Eight = 8,              ///< Value of an Eight card in points.
+	Seven = 7,              ///< Value of a Seven card in points.
+	RankMask = 0b1111,      ///< Mask for extracting the rank value from a card.
+	NegativeRankMask = ~RankMask ///< Mask for clearing the rank portion of a card.
 };
 
 // Constants for game configuration and rules.
@@ -89,11 +90,19 @@ const int MAX_PLAYERS = 9;
 const std::string  WARNING = "Enter correct data!";
 const std::string  FILE_NAME = "pockergame.txt";
 
+const bool DEAL_PLAY = true;
+const bool NOT_DEAL_PLAY = false;
+
+const bool FIRST_DEAL = true;
+const bool CONTINUE_DEAL = false;
+
 /// <summary>Value of a single chip in the game.</summary>
 const int CHIP_VALUE = 10;
 
 /// <summary>Total number of chips each player starts with in the game.</summary>
 const int NUMBER_OF_CHIPS = 100;
+
+const int CHIPS_ADD_VALUE = 50;
 
 /// <summary>Default points assigned to a player based on their initial set of cards.</summary>
 const int STARTING_POINTS = 0;
@@ -106,9 +115,6 @@ const bool ACTIVE_PLAYER = true;   ///< Indicates an active player.
 const bool INACTIVE_PLAYER = false; ///< Indicates an inactive player.
 
 // Scoring and game logic constants.
-
-const int CARDS_COUNT = 3;          ///< Number of cards dealt to players.
-const int CARDS_IN_DECK = 32;       ///< Number of cards in the deck.
 
 const int MAX_POINTS = 34;          ///< Maximum points a player can achieve.
 
@@ -141,6 +147,9 @@ const size_t CARDS_COL = 8;
 /// </summary>
 const size_t SUITS = 4;
 
+const int CARDS_COUNT = 3;						   ///< Number of cards dealt to players.
+const int CARDS_IN_DECK = SUITS * CARDS_COL;       ///< Number of cards in the deck.
+
 /// <summary>
 /// Represents a matrix of pips and corresponding rank values.
 /// The first row contains bitwise pip values, and the second row contains rank values.
@@ -148,8 +157,8 @@ const size_t SUITS = 4;
 /// </summary>
 const card_type pipsMatrix[PIPS_ROW][CARDS_COL] =
 {
-    {Pip::N7, Pip::N8, Pip::N9, Pip::N10, Pip::J, Pip::Q, Pip::K, Pip::A},
-    {Rank::Seven, Rank::Eight, Rank::Nine, Rank::Ten, Rank::Jack, Rank::Queen, Rank::King, Rank::Ace}
+	{Pip::N7, Pip::N8, Pip::N9, Pip::N10, Pip::J, Pip::Q, Pip::K, Pip::A},
+	{Rank::Seven, Rank::Eight, Rank::Nine, Rank::Ten, Rank::Jack, Rank::Queen, Rank::King, Rank::Ace}
 };
 
 /// <summary>

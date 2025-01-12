@@ -4,6 +4,17 @@
 #include "Card.h"
 #include "GlobalConstants.h"
 
+void InitEmptyPlayer(Player& player)
+{
+	player.name = "";
+	player.cardsAndPointsDisplay= "";
+	player.isPlayerActive = PlayerCondition::Unactive;
+	player.chips = 0;
+	player.lastRaise = 0;
+	player.points = 0;
+	player.id = 0;
+}
+
 void AddChips(Player& player, int chips)
 {
 	player.chips += chips;
@@ -274,4 +285,26 @@ std::string CardsToString(Card cards[], int points)
 	}
 
 	return result.append(std::to_string(points));
+}
+
+bool IsPlayerInDeal(player_condition_type condition)
+{
+	return (condition != PlayerCondition::Unactive) && ((condition & PlayerCondition::Active) == PlayerCondition::Active);
+}
+
+int CalcMaxRaise(Player players[])
+{
+	int maxRaise = INT_MAX;
+
+	for (int i = 0; i < MAX_PLAYERS; i++)
+	{
+		player_condition_type condition = players[i].isPlayerActive;
+		int playerChips = players[i].chips;
+		if (IsPlayerInDeal(condition) && playerChips < maxRaise)
+		{
+			maxRaise = playerChips;
+		}
+	}
+
+	return maxRaise;
 }
