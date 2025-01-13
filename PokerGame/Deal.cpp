@@ -6,6 +6,17 @@
 #include "SetDeck.h"
 #include "Player.h"
 
+int CalcHalfPot(int pot)
+{
+	int half = pot / 2;
+	if ((half % 10) == 5)
+	{
+		half += 5;
+	}
+
+	return half;
+}
+
 void DisplayPlayersInDeal(Player* players)
 {
 	for (int i = 0; i < MAX_PLAYERS; i++)
@@ -166,7 +177,7 @@ void DeterminingWinner(Player players[], Deal& deal)
 
 	if (winnersCount > 1)
 	{
-		int halfPot = std::ceil(1.0 * deal.pot / 2);
+		int halfPot = CalcHalfPot(deal.pot);
 
 		for (int i = 0; i < MAX_PLAYERS; i++)
 		{
@@ -255,7 +266,7 @@ GameCondition DealLoop(Player players[], Deal& deal)
 bool DealStart(Player players[], Deal& deal)
 {
 	ClearDeal(deal);
-	Card* cardDeck = new Card[CARDS_IN_DECK];
+	Card cardDeck[CARDS_IN_DECK];
 
 	SetUpCardDeck(cardDeck);
 	int currentDeckCount = CARDS_IN_DECK;
@@ -280,9 +291,6 @@ bool DealStart(Player players[], Deal& deal)
 			SetCards(player, cardDeck, currentDeckCount);
 		}
 	}
-
-	delete[] cardDeck;
-	cardDeck = nullptr;
 
 	return result;
 }
