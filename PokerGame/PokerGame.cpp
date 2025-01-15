@@ -1,10 +1,9 @@
-#include <iostream>
-
 #include "Gameplay.h"
 
 int main()
 {
-    GameRun();
+	GameRun();
 
-    return 0;
+	return 0;
 }
+ 

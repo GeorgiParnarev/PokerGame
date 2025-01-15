@@ -118,6 +118,7 @@ const int MAX_POINTS = 34;          ///< Maximum points a player can achieve.
 
 const bool IS_ACE_OR_SEVEN_PAIR = true; ///< Indicates if a pair consists of Aces or Sevens.
 const bool IS_NOT_ACE_OR_SEVEN_PAIR = false; ///< Indicates if a pair does not consist of Aces or Sevens.
+
 const int PAIR_CARD_AMOUNT = 2;     ///< Number of cards in a pair.
 const int PAIR_ACE_POINTS = 22;     ///< Points for a pair of Aces.
 const int PAIR_SEVEN_POINTS = 23;   ///< Points for a pair of Sevens.
