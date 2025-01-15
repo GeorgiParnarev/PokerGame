@@ -3,7 +3,6 @@
 #include "GlobalConstants.h"
 #include "Deal.h"
 #include "Gameplay.h"
-#include "SetDeck.h"
 #include "Player.h"
 
 int CalcHalf(int pot)

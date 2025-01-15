@@ -132,7 +132,6 @@
     <ClCompile Include="Gameplay.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PokerGame.cpp" />
-    <ClCompile Include="SetDeck.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h" />
@@ -141,7 +140,6 @@
     <ClInclude Include="GlobalConstants.h" />
     <ClInclude Include="GlobalTypes.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="SetDeck.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
