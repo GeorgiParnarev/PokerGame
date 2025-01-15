@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>
-
 #include "GlobalTypes.h"
 #include "GlobalConstants.h"
 

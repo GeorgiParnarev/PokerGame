@@ -1,5 +1,2 @@
-﻿  Deal.cpp
-  Player.cpp
-C:\Users\HP\source\repos\PokerGame\PokerGame\Player.cpp(276,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Generating Code...
+﻿  SetDeck.cpp
   PokerGame.vcxproj -> C:\Users\HP\source\repos\PokerGame\x64\Debug\PokerGame.exe

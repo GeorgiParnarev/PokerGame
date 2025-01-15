@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-
 #include "SetDeck.h"
 #include "GlobalConstants.h"
 #include "Card.h"

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>
-
 #include "GlobalTypes.h"
 
 enum PlayerCondition
@@ -87,8 +85,8 @@ const int MIN_PLAYERS = 2;
 /// <summary>Maximum number of players allowed in the game.</summary>
 const int MAX_PLAYERS = 9;
 
-const std::string  WARNING = "Enter correct data!";
-const std::string  FILE_NAME = "pockergame.txt";
+const char WARNING[] = "Enter correct data!";
+const char FILE_NAME[] = "pockergame.txt";
 
 const bool DEAL_PLAY = true;
 const bool NOT_DEAL_PLAY = false;
