@@ -1,69 +1,73 @@
 #include "Card.h"
 #include "GlobalConstants.h"
 
-std::string CardToString(card_type card)
+void CardToString(Card& card)
 {
-	std::string result = "";
+	for (size_t i = 0; i < CARD_STRING_MAX_SIZE; i++)
+	{
+		card.cardString[i] = '\0';
+	}
 
-	switch (card & Pip::PipMask)
+	switch (card.card & Pip::PipMask)
 	{
 	case Pip::A:
-		result.append("A");
+		card.cardString[0] = 'A';
 		break;
 
 	case Pip::K:
-		result.append("K");
+		card.cardString[0] = 'K';
 		break;
 
 	case Pip::Q:
-		result.append("Q");
+		card.cardString[0] = 'Q';
 		break;
 
 	case Pip::J:
-		result.append("J");
+		card.cardString[0] = 'J';
 		break;
 
 	case Pip::N10:
-		result.append("10");
+		card.cardString[0] = '1';
+		card.cardString[1] = '0';
 		break;
 
 	case Pip::N9:
-		result.append("9");
+		card.cardString[0] = '9';
 		break;
 
 	case Pip::N8:
-		result.append("8");
+		card.cardString[0] = '8';
 		break;
 
 	case Pip::N7:
-		result.append("7");
+		card.cardString[0] = '7';
 		break;
 	default:
 		break;
 	}
 
-	switch (card & Suit::SuitMask)
+	int index = (card.cardString[0] == '1' ? 2 : 1);
+
+	switch (card.card & Suit::SuitMask)
 	{
 	case Suit::Hearts:
-		result.append("H");
+		card.cardString[index] = 'H';
 		break;
 
 	case Suit::Diamonds:
-		result.append("D");
+		card.cardString[index] = 'D';
 		break;
 
 	case Suit::Clubs:
-		result.append("C");
+		card.cardString[index] = 'C';
 		break;
 
 	case Suit::Spades:
-		result.append("S");
+		card.cardString[index] = 'S';
 		break;
 	default:
 		break;
 	}
-
-	return result;
 }
 
 bool IsSevenClubsPresent(Card cards[])

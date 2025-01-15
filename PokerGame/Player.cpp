@@ -4,15 +4,30 @@
 #include "Card.h"
 #include "GlobalConstants.h"
 
+void GeneratePlayerString(Player& player, Card* cards)
+{
+	int index = 0;
+
+	for (int i = 0; i < CARDS_COUNT; i++)
+	{
+		int cardIndex = 0;
+		while (cards[i].cardString[cardIndex] != '\0')
+		{
+			player.cardsDisplay[index++] = cards[i].cardString[cardIndex++];
+		}
+
+		player.cardsDisplay[index++] = ' ';
+	}
+
+	player.cardsDisplay[index] = '\0';
+}
+
 void InitEmptyPlayer(Player& player)
 {
-	player.name = "";
-	player.cardsAndPointsDisplay= "";
 	player.isPlayerActive = PlayerCondition::Unactive;
 	player.chips = 0;
 	player.lastRaise = 0;
 	player.points = 0;
-	player.id = 0;
 }
 
 void AddChips(Player& player, int chips)
@@ -272,19 +287,7 @@ void SetCards(Player& player, Card cardsDeck[], int& currentDeckSize)
 	}
 
 	player.points = CalculatePoints(cards);
-	player.cardsAndPointsDisplay = CardsToString(cards, player.points);
-}
-
-std::string CardsToString(Card cards[], int points)
-{
-	std::string result = "";
-
-	for (size_t i = 0; i < CARDS_COUNT; i++)
-	{
-		result.append(CardToString(cards[i].card)).append(" ");
-	}
-
-	return result.append(std::to_string(points));
+	GeneratePlayerString(player, cards);
 }
 
 bool IsPlayerInDeal(player_condition_type condition)

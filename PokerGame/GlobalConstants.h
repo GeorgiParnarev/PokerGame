@@ -150,6 +150,9 @@ const size_t SUITS = 4;
 const int CARDS_COUNT = 3;						   ///< Number of cards dealt to players.
 const int CARDS_IN_DECK = SUITS * CARDS_COL;       ///< Number of cards in the deck.
 
+const int CARDS_DISPLAY_MAX_SIZE = 20;
+const int CARD_STRING_MAX_SIZE = 4;
+
 /// <summary>
 /// Represents a matrix of pips and corresponding rank values.
 /// The first row contains bitwise pip values, and the second row contains rank values.

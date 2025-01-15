@@ -4,6 +4,7 @@
 
 #include "SetDeck.h"
 #include "GlobalConstants.h"
+#include "Card.h"
 
 void SetUpCardDeck(Card cards[])
 {
@@ -20,6 +21,8 @@ void SetUpCardDeck(Card cards[])
 			isSevenClubs = isSevenClubs && (card.card & Pip::PipMask) == Pip::N7;
 
 			card.isSevenClubs = isSevenClubs;
+
+			CardToString(card);
 
 			cards[cardNum] = card;
 

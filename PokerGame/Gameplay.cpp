@@ -1,35 +1,10 @@
 #include <iostream>
 #include <fstream>
 
-#include "Gameplay.h"
+#include "GlobalConstants.h"
+#include "GamePlay.h"
+#include "Player.h"
 #include "Deal.h"
-
-int ActivePlayersInDealCount(Player players[])
-{
-	int activeCount = 0;
-	for (int i = 0; i < MAX_PLAYERS; i++)
-	{
-		activeCount += IsPlayerInDeal(players[i].isPlayerActive) ? 1 : 0;
-	}
-
-	return activeCount;
-}
-
-bool IsPlayerInGame(player_condition_type condition)
-{
-	return (condition != PlayerCondition::Unactive);
-}
-
-int ActivePlayersCount(Player players[])
-{
-	int activeCount = 0;
-	for (int i = 0; i < MAX_PLAYERS; i++)
-	{
-		activeCount += IsPlayerInGame(players[i].isPlayerActive) ? 1 : 0;
-	}
-
-	return activeCount;
-}
 
 void ActualizePlayers(Player players[])
 {
@@ -52,105 +27,6 @@ void ActualizePlayers(Player players[])
 	}
 }
 
-void GameInitPlayers(Player players[], int playersNum)
-{
-	GameClear(players);
-
-	for (int i = 0; i < playersNum; i++)
-	{
-		int plaiersId = i + 1;
-		std::string playerName = std::string().append("Player").append(std::to_string(plaiersId));
-
-		players[i].name = playerName;
-		players[i].chips = CHIP_VALUE * NUMBER_OF_CHIPS;
-		players[i].id = plaiersId;
-		players[i].isPlayerActive = PlayerCondition::Active;
-	}
-}
-
-void GameClear(Player players[])
-{
-	for (int i = 0; i < MAX_PLAYERS; i++)
-	{
-		InitEmptyPlayer(players[i]);
-	}
-}
-
-int GameSetPlayersNum()
-{
-	bool isChoisCorect = false;
-
-	int playersNum;
-
-	while (!isChoisCorect)
-	{
-		std::string s;
-
-		std::cout << "How many players are going to play("
-			<< MIN_PLAYERS
-			<< " - "
-			<< MAX_PLAYERS
-			<< ")? ";
-
-		std::getline(std::cin, s);
-
-		try
-		{
-			playersNum = stoi(s);
-			bool correctNum = (playersNum < MIN_PLAYERS || playersNum > MAX_PLAYERS);
-
-			if (correctNum)
-			{
-				throw std::runtime_error("");
-			}
-
-			isChoisCorect = true;
-		}
-		catch (const std::exception&)
-		{
-			std::cout << WARNING << std::endl;
-		}
-	}
-
-	return playersNum;
-}
-
-FileCondition GameSaveToFile(Player players[])
-{
-	FileCondition result = FileCondition::OK;
-
-	std::ofstream f(FILE_NAME);
-
-	try
-	{
-		if (f.is_open())
-		{
-			int playerCount = ActivePlayersCount(players);
-			f << playerCount << std::endl;
-
-			for (int i = 0; i < MAX_PLAYERS; i++)
-			{
-				Player& player = players[i];
-				bool condition = IsPlayerInGame(player.isPlayerActive);
-				if (condition)
-				{
-					f << player.name << std::endl;
-					f << player.chips << std::endl;
-					f << player.id << std::endl;
-
-				}
-
-			}
-		}
-	}
-	catch (const std::exception&)
-	{
-		result = FileCondition::Error;
-	}
-
-	return result;
-}
-
 GameCondition GameLoop(Player players[])
 {
 	Deal deal;
@@ -170,11 +46,12 @@ GameCondition GameLoop(Player players[])
 			}
 			else
 			{
-				std::string s;
 				std::cout << "Play again? y/n: ";
-				std::getline(std::cin, s);
+				char ch;
+				std::cin >> ch;
+				while (std::cin.get() != '\n');
 
-				if (s == "n" || s == "N")
+				if (ch == 'n' || ch == 'N')
 				{
 					condition = GameCondition::End;
 				}
@@ -193,29 +70,19 @@ FileCondition GameReadFromFile(Player players[])
 
 	if (f.is_open())
 	{
-		std::string s;
-		while (getline(f, s))
+		int playerChips;
+
+		for (int i = 0; i < MAX_PLAYERS; i++)
 		{
-			int playersNum = stoi(s);
+			f >> playerChips;
 
-			for (int i = 0; i < playersNum; i++)
-			{
-				getline(f, s);
-				std::string name = s;
-
-				getline(f, s);
-				int chips = stoi(s);
-
-				getline(f, s);
-				int id = stoi(s);
-
-				players[id].name = name;
-				players[id].chips = chips;
-				players[id].id = id;
-				players[id].isPlayerActive = PlayerCondition::Active;
-			}
+			players[i].chips = playerChips;
+			players[i].isPlayerActive = PlayerCondition::Active;
 		}
+
 		result = FileCondition::OK;
+
+		ActualizePlayers(players);
 	}
 
 	f.close();
@@ -225,14 +92,16 @@ FileCondition GameReadFromFile(Player players[])
 
 void GameChoisNewGame(Player players[])
 {
-	std::string s;
 	std::cout << "Game Continue" << std::endl << "New Game" << std::endl << "Choice c/n: ";
-	std::getline(std::cin, s);
+
+	char ch;
+	std::cin >> ch;
+	while (std::cin.get() != '\n');
 
 	GameClear(players);
 	FileCondition f = GameReadFromFile(players);
 
-	bool choisFlag = (s == "c" || s == "C") && (f == FileCondition::OK);
+	bool choisFlag = (ch == 'c' || ch == 'C') && (f == FileCondition::OK);
 
 	if (!choisFlag)
 	{
@@ -258,4 +127,116 @@ void GameRun()
 			GameSaveToFile(players);
 		}
 	}
+}
+
+int ActivePlayersInDealCount(Player players[])
+{
+	int activeCount = 0;
+	for (int i = 0; i < MAX_PLAYERS; i++)
+	{
+		activeCount += IsPlayerInDeal(players[i].isPlayerActive) ? 1 : 0;
+	}
+
+	return activeCount;
+}
+
+int ActivePlayersCount(Player players[])
+{
+	int activeCount = 0;
+	for (int i = 0; i < MAX_PLAYERS; i++)
+	{
+		activeCount += IsPlayerInGame(players[i].isPlayerActive) ? 1 : 0;
+	}
+
+	return activeCount;
+}
+
+void GameInitPlayers(Player players[], int playersNum)
+{
+	GameClear(players);
+
+	for (int i = 0; i < playersNum; i++)
+	{
+		players[i].chips = CHIP_VALUE * NUMBER_OF_CHIPS;
+		players[i].isPlayerActive = PlayerCondition::Active;
+	}
+}
+
+void GameClear(Player players[])
+{
+	for (int i = 0; i < MAX_PLAYERS; i++)
+	{
+		InitEmptyPlayer(players[i]);
+	}
+}
+
+int GameSetPlayersNum()
+{
+	bool isChoisCorect = false;
+
+	int playersNum;
+
+	while (!isChoisCorect)
+	{
+		std::cin.clear();
+
+		std::cout << "How many players are going to play("
+			<< MIN_PLAYERS
+			<< " - "
+			<< MAX_PLAYERS
+			<< ")? ";
+
+		if (!(std::cin >> playersNum))
+		{
+			std::cin.clear();
+			std::cin.ignore(INT_MAX, '\n');
+			std::cout << std::endl << WARNING << std::endl;
+			isChoisCorect = false;
+		}
+		else
+		{
+			std::cin.ignore(INT_MAX, '\n');
+
+			bool correctNum = (playersNum >= MIN_PLAYERS && playersNum <= MAX_PLAYERS);
+			if (correctNum)
+			{
+				isChoisCorect = true;
+			}
+		}
+	}
+
+	return playersNum;
+}
+
+FileCondition GameSaveToFile(Player players[])
+{
+	FileCondition result = FileCondition::OK;
+
+	std::ofstream f(FILE_NAME);
+
+	try
+	{
+		if (f.is_open())
+		{
+			for (int i = 0; i < MAX_PLAYERS; i++)
+			{
+				Player& player = players[i];
+
+				f << player.chips << " ";
+			}
+		}
+	}
+	catch (const std::exception&)
+	{
+		result = FileCondition::Error;
+	}
+
+	f.close();
+
+	return result;
+}
+
+bool IsPlayerInGame(player_condition_type condition)
+{
+	return (condition != PlayerCondition::Unactive);
 }

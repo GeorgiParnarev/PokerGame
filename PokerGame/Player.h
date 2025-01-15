@@ -8,14 +8,11 @@
 
 struct Player
 {
-	std::string name;					///< The name of the player.
-	std::string cardsAndPointsDisplay;
+	char cardsDisplay[CARDS_DISPLAY_MAX_SIZE];
 	int chips;							///< The amount of chips the player has.
 	int points;							///< The player's current points.
 	int lastRaise;
-	int id;
 	player_condition_type isPlayerActive;
-	bool isHasSevenClubs;
 };
 
 /// <summary>
@@ -91,8 +88,6 @@ bool CardsShareSameKind(const Card, const Card);
 bool CardsShareSameSuit(const Card, const Card);
 
 void AddChips(Player&, int);
-
-std::string CardsToString(Card[], int);
 
 bool IsPlayerInDeal(player_condition_type);
 
