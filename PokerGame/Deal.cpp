@@ -228,7 +228,7 @@ void DeterminingWinner(Player players[], Deal& deal)
 	int maxPoint = CalcMaxPoints(players);
 
 	int winnersCount = 0;
-	int lastWinnerIdx = -1;
+	int lastWinnerIndex = -1;
 
 	for (int i = 0; i < MAX_PLAYERS; i++)
 	{
@@ -243,7 +243,7 @@ void DeterminingWinner(Player players[], Deal& deal)
 			else
 			{
 				winnersCount++;
-				lastWinnerIdx = i;
+				lastWinnerIndex = i;
 			}
 		}
 	}
@@ -305,7 +305,7 @@ void DeterminingWinner(Player players[], Deal& deal)
 	}
 	else
 	{
-		Player& winner = players[lastWinnerIdx];
+		Player& winner = players[lastWinnerIndex];
 
 		winner.chips += deal.pot;
 		winner.lastRaise = 0;
@@ -313,7 +313,7 @@ void DeterminingWinner(Player players[], Deal& deal)
 		deal.pot = 0;
 		deal.lastGameRaise = 0;
 
-		std::cout << "Player" << lastWinnerIdx + 1 << " is winner." << std::endl << std::endl;
+		std::cout << "Player" << lastWinnerIndex + 1 << " is winner." << std::endl << std::endl;
 		DisplayPlayersInDeal(players);
 	}
 }
