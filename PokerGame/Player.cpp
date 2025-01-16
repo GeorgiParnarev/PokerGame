@@ -12,6 +12,87 @@
 /// <param name="cards">The cards held by the player.</param>
 void GeneratePlayerString(Player& player, Card cards[]);
 
+/// <summary>
+/// Determines if all the cards in the array are Sevens.
+/// </summary>
+/// <param name="cards">The array of cards to check.</param>
+/// <returns>True if all cards are Sevens, otherwise false.</returns>
+bool ThreeSevens(Card cards[]);
+
+/// <summary>
+/// Checks if all cards in the array are of the same kind (rank).
+/// </summary>
+/// <param name="cards">The array of cards to check.</param>
+/// <returns>True if all cards are of the same kind, otherwise false.</returns>
+bool ThreeOfKind(Card cards[]);
+
+/// <summary>
+/// Checks if all cards in the array share the same suit.
+/// </summary>
+/// <param name="cards">The array of cards to check.</param>
+/// <returns>True if all cards are of the same suit, otherwise false.</returns>
+bool ThreeOfSameSuit(Card cards[]);
+
+/// <summary>
+/// Checks if the card array contains exactly a pair of Aces.
+/// </summary>
+/// <param name="cards">The array of cards to check.</param>
+/// <returns>True if there is a pair of Aces, otherwise false.</returns>
+bool PairOfAces(Card cards[]);
+
+/// <summary>
+/// Checks if the card array contains exactly a pair of Sevens.
+/// </summary>
+/// <param name="cards">The array of cards to check.</param>
+/// <returns>True if there is a pair of Sevens, otherwise false.</returns>
+bool PairOfSevens(Card cards[]);
+
+/// <summary>
+/// Checks if two cards share the same kind (rank).
+/// </summary>
+/// <param name="card1">The first card to compare.</param>
+/// <param name="card2">The second card to compare.</param>
+/// <returns>True if the cards share the same kind, otherwise false.</returns>
+bool CardsShareSameKind(const Card card1, const Card card2);
+
+/// <summary>
+/// Checks if the cards contain a pair that includes the Seven of Clubs.
+/// </summary>
+/// <param name="scoredPoints">The reference to the current score to update if a pair is found.</param>
+/// <param name="cards">The array of cards to check.</param>
+/// <returns>True if a pair with the Seven of Clubs exists, otherwise false.</returns>
+bool PairWithSevenOfClubs(int& scoredPoints, Card cards[]);
+
+/// <summary>
+/// Checks if two cards share the same suit.
+/// </summary>
+/// <param name="card1">The first card to compare.</param>
+/// <param name="card2">The second card to compare.</param>
+/// <returns>True if the cards share the same suit, otherwise false.</returns>
+bool CardsShareSameSuit(const Card card1, const Card card2);
+
+/// <summary>
+/// Checks if the cards contain a pair of the same suit.
+/// </summary>
+/// <param name="scoredPoints">The reference to the current score to update if a pair is found.</param>
+/// <param name="cards">The array of cards to check.</param>
+/// <returns>True if a pair of suits exists, otherwise false.</returns>
+bool PairOfSuits(int& scoredPoints, Card cards[]);
+
+/// <summary>
+/// Calculates the highest card value from the array of cards.
+/// </summary>
+/// <param name="cards">The array of cards to evaluate.</param>
+/// <returns>The value of the highest card.</returns>
+int CalcHighCard(Card cards[]);
+
+/// <summary>
+/// Calculates the total points based on the card combination in the array.
+/// </summary>
+/// <param name="cards">The array of cards to evaluate.</param>
+/// <returns>The total points calculated for the card combination.</returns>
+int CalculatePoints(Card cards[]);
+
 void GeneratePlayerString(Player& player, Card cards[])
 {
 	int index = 0;
