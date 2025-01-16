@@ -108,7 +108,7 @@ void DealPlay(Player players[], Deal& deal)
 
 			while (!isCorrect)
 			{
-				player_condition_type ChoiceMade = PlayerCondition::Unactive;
+				player_condition_type ChoiceMade = PlayerCondition::Inactive;
 				std::cout << "You have given: " << player.lastRaise / CHIP_VALUE << " chips" << std::endl;
 				std::cout << "Last raise is: " << deal.lastGameRaise / CHIP_VALUE << " chips" << std::endl << std::endl;
 				DisplayPlayer(player, currentPlayerIndex + 1);

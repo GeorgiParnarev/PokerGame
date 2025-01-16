@@ -4,7 +4,7 @@
 
 enum PlayerCondition
 {
-	Unactive = 0,
+	Inactive = 0,
 	Active = 0b00000001,
 	Fold = Active << 1,
 	Call = Fold << 1,

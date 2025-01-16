@@ -113,7 +113,7 @@ void GeneratePlayerString(Player& player, Card cards[])
 
 void InitEmptyPlayer(Player& player)
 {
-	player.isPlayerActive = PlayerCondition::Unactive;
+	player.isPlayerActive = PlayerCondition::Inactive;
 	player.chips = 0;
 	player.lastRaise = 0;
 	player.points = 0;
@@ -376,7 +376,7 @@ void SetCards(Player& player, Card cardsDeck[], int& currentDeckSize)
 
 bool IsPlayerInDeal(player_condition_type condition)
 {
-	return (condition != PlayerCondition::Unactive) && ((condition & PlayerCondition::Active) == PlayerCondition::Active);
+	return (condition != PlayerCondition::Inactive) && ((condition & PlayerCondition::Active) == PlayerCondition::Active);
 }
 
 int CalcMaxRaise(Player players[])

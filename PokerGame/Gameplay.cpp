@@ -12,11 +12,11 @@ void ActualizePlayers(Player players[])
 	{
 		Player& player = players[i];
 
-		if (player.isPlayerActive != PlayerCondition::Unactive)
+		if (player.isPlayerActive != PlayerCondition::Inactive)
 		{
 			if (player.chips < CHIP_VALUE)
 			{
-				player.isPlayerActive = PlayerCondition::Unactive;
+				player.isPlayerActive = PlayerCondition::Inactive;
 			}
 			else
 			{
@@ -238,5 +238,5 @@ FileCondition GameSaveToFile(Player players[])
 
 bool IsPlayerInGame(player_condition_type condition)
 {
-	return (condition != PlayerCondition::Unactive);
+	return (condition != PlayerCondition::Inactive);
 }
