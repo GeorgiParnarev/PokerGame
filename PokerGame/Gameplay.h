@@ -4,16 +4,21 @@
 #include "Card.h"
 #include "Player.h"
 
-bool IsPlayerInGame(player_condition_type);
-int ActivePlayersCount(Player[]);
-int ActivePlayersInDealCount(Player[]);
-void ActualizePlayers(Player[]);
-void GameInitPlayers(Player[], int);
-
-void GameClear(Player[]);
-int GameSetPlayersNum();
-FileCondition GameSaveToFile(Player[]);
-GameCondition GameLoop(Player[]);
-FileCondition GameReadFromFile(Player[]);
-void GameChoisNewGame(Player[]);
+/// <summary>
+/// Manages the overall game loop including saving game progress at the end of the session.
+/// </summary>
 void GameRun();
+
+/// <summary>
+/// Counts how many players are currently active in the deal (those participating in the round).
+/// </summary>
+/// <param name="players">Array of players to check for active status.</param>
+/// <returns>The number of active players in the deal.</returns>
+int ActivePlayersInDealCount(Player players[]);
+
+/// <summary>
+/// Checks if a player is in the game based on their condition.
+/// </summary>
+/// <param name="condition">The condition of the player.</param>
+/// <returns>True if the player is active, false otherwise.</returns>
+bool IsPlayerInGame(player_condition_type condition);

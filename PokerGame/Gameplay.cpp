@@ -6,6 +6,65 @@
 #include "Player.h"
 #include "Deal.h"
 
+/// <summary>
+/// Updates the status of each player, marking them as active or inactive based on their chip count.
+/// </summary>
+/// <param name="players">Array of players to update.</param>
+void ActualizePlayers(Player players[]);
+
+/// <summary>
+/// Main game loop where the game continues until one player remains or the user opts to end the game.
+/// </summary>
+/// <param name="players">Array of players in the game.</param>
+/// <returns>Current game condition after the loop ends.</returns>
+GameCondition GameLoop(Player players[]);
+
+/// <summary>
+/// Reads player data from a file and updates their chip counts and statuses.
+/// </summary>
+/// <param name="players">Array of players to populate from the file.</param>
+/// <returns>File condition after attempting to read the data.</returns>
+FileCondition GameReadFromFile(Player players[]);
+
+/// <summary>
+/// Prompts the user to either continue an existing game or start a new one.
+/// </summary>
+/// <param name="players">Array of players to initialize based on the choice.</param>
+void GameChoiceNewGame(Player players[]);
+
+/// <summary>
+/// Counts how many players are currently active in the game (those who are still in the game).
+/// </summary>
+/// <param name="players">Array of players to check for active status.</param>
+/// <returns>The number of active players in the game.</returns>
+int ActivePlayersCount(Player players[]);
+
+/// <summary>
+/// Initializes the players with default values such as chips and active status based on the number of players.
+/// </summary>
+/// <param name="players">Array of players to initialize.</param>
+/// <param name="playersNum">Number of players to initialize.</param>
+void GameInitPlayers(Player players[], int playersNum);
+
+/// <summary>
+/// Resets all players' data to its initial empty state.
+/// </summary>
+/// <param name="players">Array of players to clear.</param>
+void GameClear(Player players[]);
+
+/// <summary>
+/// Asks the user for the number of players participating in the game.
+/// </summary>
+/// <returns>The number of players chosen by the user.</returns>
+int GameSetPlayersNum();
+
+/// <summary>
+/// Saves the current state of the game (player chip counts) to a file.
+/// </summary>
+/// <param name="players">Array of players whose data is saved.</param>
+/// <returns>The result of the file save operation.</returns>
+FileCondition GameSaveToFile(Player[]);
+
 void ActualizePlayers(Player players[])
 {
 	for (int i = 0; i < MAX_PLAYERS; i++)
@@ -81,16 +140,16 @@ FileCondition GameReadFromFile(Player players[])
 		}
 
 		result = FileCondition::OK;
-
-		ActualizePlayers(players);
 	}
 
 	f.close();
 
+	ActualizePlayers(players);
+
 	return result;
 }
 
-void GameChoisNewGame(Player players[])
+void GameChoiceNewGame(Player players[])
 {
 	std::cout << "Game Continue" << std::endl << "New Game" << std::endl << "Choice c/n: ";
 
@@ -101,9 +160,9 @@ void GameChoisNewGame(Player players[])
 	GameClear(players);
 	FileCondition f = GameReadFromFile(players);
 
-	bool choisFlag = (ch == 'c' || ch == 'C') && (f == FileCondition::OK);
+	bool choiceFlag = (ch == 'c' || ch == 'C') && (f == FileCondition::OK);
 
-	if (!choisFlag)
+	if (!choiceFlag)
 	{
 		int playersNum = GameSetPlayersNum();
 		GameInitPlayers(players, playersNum);
@@ -118,7 +177,7 @@ void GameRun()
 
 	while (condition == GameCondition::Win)
 	{
-		GameChoisNewGame(players);
+		GameChoiceNewGame(players);
 
 		condition = GameLoop(players);
 
@@ -172,11 +231,11 @@ void GameClear(Player players[])
 
 int GameSetPlayersNum()
 {
-	bool isChoisCorect = false;
+	bool isChoiceCorect = false;
 
 	int playersNum;
 
-	while (!isChoisCorect)
+	while (!isChoiceCorect)
 	{
 		std::cin.clear();
 
@@ -191,7 +250,7 @@ int GameSetPlayersNum()
 			std::cin.clear();
 			std::cin.ignore(INT_MAX, '\n');
 			std::cout << std::endl << WARNING << std::endl;
-			isChoisCorect = false;
+			isChoiceCorect = false;
 		}
 		else
 		{
@@ -200,7 +259,7 @@ int GameSetPlayersNum()
 			bool correctNum = (playersNum >= MIN_PLAYERS && playersNum <= MAX_PLAYERS);
 			if (correctNum)
 			{
-				isChoisCorect = true;
+				isChoiceCorect = true;
 			}
 		}
 	}
@@ -214,21 +273,22 @@ FileCondition GameSaveToFile(Player players[])
 
 	std::ofstream f(FILE_NAME);
 
-	try
-	{
-		if (f.is_open())
-		{
-			for (int i = 0; i < MAX_PLAYERS; i++)
-			{
-				Player& player = players[i];
-
-				f << player.chips << " ";
-			}
-		}
-	}
-	catch (const std::exception&)
+	if (!f.is_open())
 	{
 		result = FileCondition::Error;
+	}
+	else
+	{
+		for (int i = 0; i < MAX_PLAYERS; i++)
+		{
+			Player& player = players[i];
+
+			if (!(f << player.chips << " "))
+			{
+				result = FileCondition::Error;
+				break;
+			}
+		}
 	}
 
 	f.close();
