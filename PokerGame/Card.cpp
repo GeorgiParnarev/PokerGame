@@ -1,6 +1,17 @@
 #include "Card.h"
 #include "GlobalConstants.h"
 
+/// <summary>
+/// Converts a Card object into its string representation and stores it in the cardString field.
+/// </summary>
+/// <param name="card">The Card object to be converted to a string representation.</param>
+/// <remarks>
+/// The string representation includes the card's rank (e.g., 'A' for Ace, '7' for Seven) 
+/// followed by its suit ('H' for Hearts, 'D' for Diamonds, 'C' for Clubs, 'S' for Spades).
+/// The method clears the cardString before populating it with the new value.
+/// </remarks>
+void CardToString(Card& card);
+
 void CardToString(Card& card)
 {
 	for (size_t i = 0; i < CARD_STRING_MAX_SIZE; i++)

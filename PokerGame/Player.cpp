@@ -5,7 +5,14 @@
 #include "Card.h"
 #include "GlobalConstants.h"
 
-void GeneratePlayerString(Player& player, Card* cards)
+/// <summary>
+/// Generates a string representation of the player's cards and stores it in the player object.
+/// </summary>
+/// <param name="player">The player whose card display string will be updated.</param>
+/// <param name="cards">The cards held by the player.</param>
+void GeneratePlayerString(Player& player, Card cards[]);
+
+void GeneratePlayerString(Player& player, Card cards[])
 {
 	int index = 0;
 
@@ -29,11 +36,6 @@ void InitEmptyPlayer(Player& player)
 	player.chips = 0;
 	player.lastRaise = 0;
 	player.points = 0;
-}
-
-void AddChips(Player& player, int chips)
-{
-	player.chips += chips;
 }
 
 bool ThreeSevens(Card cards[])

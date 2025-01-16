@@ -3,24 +3,40 @@
 #include "GlobalTypes.h"
 #include "GlobalConstants.h"
 
+/// <summary>
+/// Represents a playing card with metadata and display information.
+/// </summary>
+/// <remarks>
+/// This struct contains details about a card, including its type, 
+/// whether it is the Seven of Clubs, and a human-readable string representation.
+/// </remarks>
 struct Card
 {
-	card_type card;
-	bool isSevenClubs;
-	char cardString[CARD_STRING_MAX_SIZE];
+	card_type card;								/// The type of the card (e.g., suit and rank).
+	bool isSevenClubs;							/// Indicates if the card is the Seven of Clubs.
+	char cardString[CARD_STRING_MAX_SIZE];		/// A string representation of the card (e.g., "7C" for Seven of Clubs).
 };
 
 /// <summary>
-/// Converts the card into a human-readable string representation.
+/// Checks if the "Seven of Clubs" card is present in an array of cards.
 /// </summary>
-/// <returns>A string describing the card (e.g., "7C" for Seven of Clubs).</returns>
-void CardToString(Card&);
-
-bool IsSevenClubsPresent(Card[]);
+/// <param name="cards">The array of Card objects to search through.</param>
+/// <returns>
+/// True if the "Seven of Clubs" card is found in the array; otherwise, false.
+/// </returns>
+/// <remarks>
+/// This method iterates through the card array and checks the isSevenClubs field 
+/// of each Card object to determine if the "Seven of Clubs" is present.
+/// </remarks>
+bool IsSevenClubsPresent(Card cards[]);
 
 /// <summary>
-/// Sets up the deck of cards by initializing it with all possible cards
-/// (combination of suits and pips) and adding them to the provided array.
+/// Initializes a complete deck of cards, assigning each card its rank, suit, and metadata.
 /// </summary>
-/// <param name="v">An array where the deck will be stored.</param>
-void SetUpCardDeck(Card[]);
+/// <param name="cards">An array of Card objects to be populated as the deck of cards.</param>
+/// <remarks>
+/// Each card in the deck is given a unique combination of rank and suit. 
+/// The "Seven of Clubs" flag is set for the corresponding card, 
+/// and a string representation is generated for each card.
+/// </remarks>
+void SetUpCardDeck(Card cards[]);
