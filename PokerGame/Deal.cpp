@@ -5,6 +5,10 @@
 #include "Gameplay.h"
 #include "Player.h"
 
+int CalcHalf(int pot);
+
+void DisplayPlayer(Player& player, int playerIndex);
+
 int CalcHalf(int pot)
 {
 	int half = pot / 2;
