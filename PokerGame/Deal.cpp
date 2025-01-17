@@ -16,7 +16,7 @@ int CalcHalf(int pot);
 /// Displays the details of a player including their cards and points.
 /// </summary>
 /// <param name="player">The player whose details will be displayed.</param>
-/// <param name="playerIndex">The index of the player in the game (1-based).</param>
+/// <param name="playerIndex">The index of the player in the game.</param>
 void DisplayPlayer(Player& player, int playerIndex);
 
 /// <summary>
