@@ -242,6 +242,21 @@ bool CardsShareSameSuit(const Card card1, const Card card2)
 
 bool PairOfSuits(int& scoredPoints, Card cards[])
 {
+	int clubsCount = 0;
+
+	for (size_t i = 0; i < CARDS_COUNT; i++)
+	{
+		if ((cards[i].card & Suit::SuitMask) == Suit::Clubs)
+		{
+			clubsCount++;
+		}
+	}
+
+	if (IsSevenClubsPresent(cards) && clubsCount == 2)
+	{
+		return false;
+	}
+
 	if (CardsShareSameSuit(cards[0], cards[1]))
 	{
 		scoredPoints += (cards[0].card & Rank::RankMask) + (cards[1].card & Rank::RankMask);

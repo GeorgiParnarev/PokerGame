@@ -5,9 +5,55 @@
 #include "Gameplay.h"
 #include "Player.h"
 
+/// <summary>
+/// Calculates half of the pot, rounding up if the half ends in a .5 value.
+/// </summary>
+/// <param name="pot">The total pot value.</param>
+/// <returns>The calculated half of the pot.</returns>
 int CalcHalf(int pot);
 
+/// <summary>
+/// Displays the details of a player including their cards and points.
+/// </summary>
+/// <param name="player">The player whose details will be displayed.</param>
+/// <param name="playerIndex">The index of the player in the game (1-based).</param>
 void DisplayPlayer(Player& player, int playerIndex);
+
+/// <summary>
+/// Loops through all players, displaying their information if they are active in the current deal.
+/// </summary>
+/// <param name="players">Array of players in the game.</param>
+void DisplayPlayersInDeal(Player players[]);
+
+/// <summary>
+/// Starts a new deal, resetting relevant parameters and dealing cards to active players.
+/// </summary>
+/// <param name="players">Array of players in the game.</param>
+/// <param name="deal">The current deal to be started.</param>
+/// <returns>True if the deal is successfully started, otherwise false.</returns>
+bool DealStart(Player players[], Deal& deal);
+
+/// <summary>
+/// Plays out the current deal by allowing players to make decisions such as raise, call, or fold.
+/// </summary>
+/// <param name="players">Array of players in the game.</param>
+/// <param name="deal">The current deal being played.</param>
+void DealPlay(Player players[], Deal& deal);
+
+/// <summary>
+/// Calculates the maximum points among all active players in the game.
+/// </summary>
+/// <param name="players">Array of players in the game.</param>
+/// <returns>The maximum points among active players.</returns>
+int CalcMaxPoints(Player players[]);
+
+/// <summary>
+/// Determines the winner of the deal based on the points of active players.
+/// If there are multiple winners, they play another round to determine the final winner.
+/// </summary>
+/// <param name="players">Array of players in the game.</param>
+/// <param name="deal">The current deal that is being played.</param>
+void DeterminingWinner(Player players[], Deal& deal);
 
 int CalcHalf(int pot)
 {
@@ -231,7 +277,7 @@ void DeterminingWinner(Player players[], Deal& deal)
 	int maxPoint = CalcMaxPoints(players);
 
 	int winnersCount = 0;
-	int lastWinnerIndex = -1;
+	int winnerIndex = -1;
 
 	for (int i = 0; i < MAX_PLAYERS; i++)
 	{
@@ -246,13 +292,15 @@ void DeterminingWinner(Player players[], Deal& deal)
 			else
 			{
 				winnersCount++;
-				lastWinnerIndex = i;
+				winnerIndex = i;
 			}
 		}
 	}
 
 	if (winnersCount > 1)
 	{
+		std::cout << "A tie has accrued!" << std::endl << std::endl;
+
 		int halfPot = CalcHalf(deal.pot);
 
 		for (int i = 0; i < MAX_PLAYERS; i++)
@@ -308,7 +356,7 @@ void DeterminingWinner(Player players[], Deal& deal)
 	}
 	else
 	{
-		Player& winner = players[lastWinnerIndex];
+		Player& winner = players[winnerIndex];
 
 		winner.chips += deal.pot;
 		winner.lastRaise = 0;
@@ -316,7 +364,7 @@ void DeterminingWinner(Player players[], Deal& deal)
 		deal.pot = 0;
 		deal.lastGameRaise = 0;
 
-		std::cout << "Player" << lastWinnerIndex + 1 << " is winner." << std::endl << std::endl;
+		std::cout << "Player" << winnerIndex + 1 << " is winner." << std::endl << std::endl;
 		DisplayPlayersInDeal(players);
 	}
 }

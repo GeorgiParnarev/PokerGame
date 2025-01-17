@@ -30,7 +30,7 @@ FileCondition GameReadFromFile(Player players[]);
 /// Prompts the user to either continue an existing game or start a new one.
 /// </summary>
 /// <param name="players">Array of players to initialize based on the choice.</param>
-void GameChoiceNewGame(Player players[]);
+void ChoiceNewGame(Player players[]);
 
 /// <summary>
 /// Counts how many players are currently active in the game (those who are still in the game).
@@ -149,7 +149,7 @@ FileCondition GameReadFromFile(Player players[])
 	return result;
 }
 
-void GameChoiceNewGame(Player players[])
+void ChoiceNewGame(Player players[])
 {
 	std::cout << "Game Continue" << std::endl << "New Game" << std::endl << "Choice c/n: ";
 
@@ -177,7 +177,7 @@ void GameRun()
 
 	while (condition == GameCondition::Win)
 	{
-		GameChoiceNewGame(players);
+		ChoiceNewGame(players);
 
 		condition = GameLoop(players);
 
