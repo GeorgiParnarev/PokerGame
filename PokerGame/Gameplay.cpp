@@ -254,6 +254,7 @@ int GameSetPlayersNum()
 		}
 		else
 		{
+			std::cin.clear();
 			std::cin.ignore(INT_MAX, '\n');
 
 			bool correctNum = (playersNum >= MIN_PLAYERS && playersNum <= MAX_PLAYERS);
